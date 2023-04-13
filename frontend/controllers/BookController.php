@@ -7,7 +7,7 @@ use common\models\BookSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use Yii;
+use Yii ;
 
 /**
  * BookController implements the CRUD actions for Book model.
