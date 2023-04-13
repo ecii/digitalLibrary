@@ -79,4 +79,8 @@ class RentRecord extends \yii\db\ActiveRecord
         ;
 
     }
+
+    public function jumPeminjaman(){
+        return RentRecord::find()->where(['rent_status'=>'RENT'])->count();
+    }
 }

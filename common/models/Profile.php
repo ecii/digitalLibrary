@@ -76,4 +76,8 @@ class Profile extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Job::class, ['id_job' => 'job_id']);
     }
+
+    public function jumMember(){
+        return Profile::find()->count();
+    }
 }

@@ -73,4 +73,5 @@ class BookRent extends \yii\db\ActiveRecord
     {
         return $this->hasOne(RentRecord::class, ['id_rent_record' => 'rent_record_id']);
     }
+    
 }

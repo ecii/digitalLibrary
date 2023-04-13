@@ -78,4 +78,20 @@ class Book extends \yii\db\ActiveRecord
         $hasil=$num1*$num2*$num3;
         return $hasil;
     }
+
+    public static function listBookIndex(){
+        //return Book::find()->where(['year'=>'2020','id'=>1])->all();
+        return Book::find()->all();
+    }
+
+    public function jumPinjam(){
+        return BookRent::find()->where(['book_id'=>$this->id_book])->count();
+    }
+
+    public function jumBuku(){
+       return Book::find()->count();
+    }
+
+   
+   
 }

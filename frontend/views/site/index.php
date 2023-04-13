@@ -2,51 +2,102 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'My Yii Application';
+use common\models\Book;
+use common\models\Profile;
+use common\models\RentRecord;
+
+$this->title = 'Pasaribu\'s Digital Library';
+$mBook=new Book();
+$mProfile=new Profile();
+$mRentRecord=new RentRecord();
 ?>
-<div class="site-index">
-    <div class="p-5 mb-4 bg-transparent rounded-3">
-        <div class="container-fluid py-5 text-center">
-            <h1 class="display-4">Congratulations!</h1>
-            <p class="fs-5 fw-light">You have successfully created your Yii-powered application.</p>
-            <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-        </div>
-    </div>
 
-    <div class="body-content">
+<div class="container">
+    <div class="col-lg-12">
+        <h3 class="dispaly-3">Daftar Buku</h3>
+        <hr>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Judul Buku</th>
+                    <th>Penulis</th>
+                    <th>Penerbit</th>
+                    <th>Tahun Terbit</th>
+                    <th>Jumlah Pinjam</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $no=1;
+                    $dataBuku = Book::listBookIndex(); 
 
+                    //dari model Book gunakan function List book index dan masukkan ke variabel dataBuku
+
+                    foreach($dataBuku as $buku){ 
+                    // setiap gabungan record yang ada di data buku pecah lagi menggunakan 
+                    //foreach dan simpan ke variabel buku   
+                    
+                    echo
+                        "
+                            <tr>
+                                <td>".$no++."</td>
+                                <td>".$buku->title."</td>
+                                <td>".$buku->author."</td>
+                                <td>".$buku->publisher."</td>
+                                <td>".$buku->year."</td>
+                                <td>".$buku->jumPinjam()."</td>
+                            </tr>
+                        
+                        ";
+                    }
+                ?>
+            </tbody>
+        </table>
         <div class="row">
             <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+                <div class="card border-success">
+                    <div class="card-header">
+                        <h3>Judul Buku</h3>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        echo"<h1>".$buku->jumBuku()."</h1>";
+                        ?>
+                        
+                        <small>Judul</small>
+                    </div>
+                </div>
             </div>
+
             <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+                <div class="card border-info">
+                    <div class="card-header">
+                        <h3>Jumlah Member</h3>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        echo"<h1>".$mProfile->jumMember()."</h1>";
+                        ?>
+                        <small>Anggota</small>
+                    </div>
+                </div>
             </div>
+
             <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                <div class="card border-Primary">
+                    <div class="card-header">
+                        <h3>Jumlah Pinjaman</h3>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        echo"<h1>".$mRentRecord->jumPeminjaman()."</h1>";
+                        ?>
+                        <small>Pinjaman</small>
+                    </div>
+                </div>
             </div>
+
         </div>
-
     </div>
 </div>
