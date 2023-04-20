@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Book;
 use common\models\BookRent;
 use common\models\BookRentSearch;
+use SebastianBergmann\CodeCoverage\Report\Html\Renderer;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -144,5 +145,11 @@ class BookRentController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionReportRent(){
+        $model=new BookRent();
+        return $this->render('report-rent',['model'=>$model]);
+        //diambil dari view report rent
     }
 }

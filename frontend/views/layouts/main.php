@@ -53,9 +53,12 @@ AppAsset::register($this);
                 ['label'=> 'Books','url'=>['/book/index']],
                 ['label'=> 'Rent Record','url'=>['/rent-record/index']]
             ]
-        ]
-
-    ];
+        ],
+        [
+                'label'=>'Book Rent Report',
+                'url'=>'/book-rent/report-rent'
+                // controller book rent dan functionnya report rent
+        ]];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
     }

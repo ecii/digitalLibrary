@@ -80,6 +80,10 @@ class RentRecord extends \yii\db\ActiveRecord
 
     }
 
+    public function getBookRent(){
+        return $this->hasMany(BookRent::class,['rent_record_id'=>'id_rent_record']);
+    }
+
     public function jumPeminjaman(){
         return RentRecord::find()->where(['rent_status'=>'RENT'])->count();
     }

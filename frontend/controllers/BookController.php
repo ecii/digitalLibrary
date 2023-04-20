@@ -4,10 +4,12 @@ namespace frontend\controllers;
 
 use common\models\Book;
 use common\models\BookSearch;
+use common\models\UploadCover;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii ;
+use yii\web\UploadedFile;
 
 /**
  * BookController implements the CRUD actions for Book model.
@@ -46,6 +48,25 @@ class BookController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionCover($id_book){
+        $model=new Book();
+        $mUpload=new UploadCover();
+
+        if($this->request->isPost){
+            if($mUpload->load($this->request->post())){
+                $mUpload->cover = UploadedFile::getInstance($mUpload,'cover');
+                $mUpload->upload($id_book);//buat function untuk upload
+                return $this->redirect(['index']);
+            }
+        }
+        return $this->renderAjax('_form-cover',[
+            'model' => $model,
+            'mUpload' => $mUpload
+        ]);
+
+
     }
 
     /**

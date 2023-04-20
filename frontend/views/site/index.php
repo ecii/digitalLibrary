@@ -36,34 +36,24 @@ $mRentRecord=new RentRecord();
 
                     foreach($dataBuku as $buku){ 
                     // setiap gabungan record yang ada di data buku pecah lagi menggunakan 
-                    //foreach dan simpan ke variabel buku   
+                    //foreach dan simpan ke variabel buku
+                    $style = "";   
                     if ($buku->jumPinjam()>0){
-                        echo
-                        "
-                            <tr style=\"background-color:red\">
-                                <td>".$no++."</td>
-                                <td>".$buku->title."</td>
-                                <td>".$buku->author."</td>
-                                <td>".$buku->publisher."</td>
-                                <td>".$buku->year."</td>
-                                <td>".$buku->jumPinjam()."</td>
-                            </tr>
-                        
-                        ";
-                    }else{
-                        echo
-                        "
-                            <tr>
-                                <td>".$no++."</td>
-                                <td>".$buku->title."</td>
-                                <td>".$buku->author."</td>
-                                <td>".$buku->publisher."</td>
-                                <td>".$buku->year."</td>
-                                <td>".$buku->jumPinjam()."</td>
-                            </tr>
-                        
-                        ";
+                        $style = "background-color:red";
                     }
+                    
+                        echo
+                        '
+                            <tr style="'.$style.'">
+                                <td>'.$no++.'</td>
+                                <td>'.$buku->title.'</td>
+                                <td>'.$buku->author.'</td>
+                                <td>'.$buku->publisher.'</td>
+                                <td>'.$buku->year.'</td>
+                                <td>'.$buku->jumPinjam().'</td>
+                            </tr>
+                        
+                        ';
                     
                     }
                 ?>
