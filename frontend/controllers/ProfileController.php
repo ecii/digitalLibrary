@@ -4,10 +4,12 @@ namespace frontend\controllers;
 
 use common\models\Profile;
 use common\models\ProfileSearch;
+use common\models\Uploadprofile;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProfileController implements the CRUD actions for Profile model.
@@ -46,6 +48,27 @@ class ProfileController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+
+    public function actionProfile($id_profile){
+        $model=new Profile();
+        $mUpload=new UploadProfile();
+
+        if($this->request->isPost){
+            if($mUpload->load($this->request->post())){
+                $mUpload->cover = UploadedFile::getInstance($mUpload,'cover');
+                $mUpload->upload($id_profile);//buat function untuk upload
+                Yii::$app->session->setFlash('warning','File Foto Berhasil Diupload');
+                return $this->redirect(['index']);
+            }
+        }
+        return $this->renderAjax('_form-foto',[
+            'model' => $model,
+            'mUpload' => $mUpload
+        ]);
+
+
     }
 
     /**

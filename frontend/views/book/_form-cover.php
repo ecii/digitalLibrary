@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\form\ActiveForm;
 use kartik\builder\Form;
+use yii\widgets\Pjax; //membuat ajax dalam form
 /** @var yii\web\View $this */
 /** @var common\models\Book $model */
 /** @var yii\widgets\ActiveForm $form */
@@ -10,9 +11,16 @@ use kartik\builder\Form;
 
 <div class="book-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options'=>[
+            'data-pjax'=>'true',
+            'id'=>'cover'
+        ]
+    ]); ?>
 
-
+<?php
+Pjax::begin(['id'=>'cover']); //membuat alarm untuk menolak file
+?>
     <?=
     Form::widget([
         'model' => $mUpload,
@@ -28,6 +36,10 @@ use kartik\builder\Form;
             
     ]);
     
+    ?>
+
+    <?php
+    Pjax::end();
     ?>
 
     <div class="form-group">

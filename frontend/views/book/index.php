@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Book;
+use kartik\export\ExportMenu;
 use yii\bootstrap5\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -20,10 +21,33 @@ $this->params['breadcrumbs'][] = $this->title;
         <h3><?= Html::encode($this->title) ?></h3>
     </div>
     <div class="card-body">
+    <?php
+        $tableExport=[
+            ['class' => 'yii\grid\SerialColumn'],
+            'title',
+            'author',
+            'publisher',
+            'year',
+            'description:ntext'
+        ];
 
+       echo ExportMenu::widget([
+            'dataProvider'=>$dataProvider,
+            'columns'=>$tableExport,
+            'filename'=>'BooksData',
+            'exportConfig'=>[
+                ExportMenu::FORMAT_CSV=>false,
+                ExportMenu::FORMAT_EXCEL=>false,
+                ExportMenu::FORMAT_HTML=>false,
+                ExportMenu::FORMAT_TEXT=>false
+
+            ]
+        ]);
+        ?>
     <p>
-        <?= Html::a('Create Book', ['create'], ['class' => 'btn btn-outline-success']) ?>
+        <?= Html::a('<span class="fa fa-plus"></span>  Create Book', ['create'], ['class' => 'btn btn-outline-success']) ?>
     </p>
+    
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -41,18 +65,22 @@ $this->params['breadcrumbs'][] = $this->title;
             //'description:ntext',
             //'created_at',
             //'created_by',
+            
             [
                 'class' => ActionColumn::className(),
-                'template' => '{update}  {cover}',
+                'template' => '{update}  {cover}  {view}',
                 'urlCreator' => function ($action, Book $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id_book' => $model->id_book]);
                  },
                  'buttons'=>[
                     'update'=>function($url,$model){
-                        return Html::a('Update',[$url],['class'=>'btn btn-warning btn sm']);
+                        return Html::a('<span class="fa fa-edit"></span>  Update',[$url],['class'=>'btn btn-warning btn sm']);
                     },
                     'cover'=>function($url,$model){
-                        return Html::button('Upload Cover',['value'=>$url, 'class'=>'btn btn-info btn sm btn-pop']);
+                        return Html::button('<span class="fa fa-upload"></span> Upload Cover',['value'=>$url, 'class'=>'btn btn-info btn sm btn-pop']);
+                    },
+                    'view'=>function($url,$model){
+                        return Html::a('<span class="fa fa-eye"></span>  Detail',[$url],['class'=>'btn btn-primary']);
                     }
                 ]
             ],

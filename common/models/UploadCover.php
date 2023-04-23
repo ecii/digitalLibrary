@@ -16,7 +16,11 @@ class UploadCover extends Model{
     public function upload($id){
         if($this->validate()){
             $filename = $id.".".$this->cover->extension;
-            $this->cover->saveAs('img/cover/'.$filename);
+            $this->cover->saveAs('img/cover/'.$filename); 
+            // memindahkan data dari komputer ke folder image cover dan mengubah nama foto sesuai id dan extention
+
+            $mbook = new book();
+            $mbook->updateAll(['foto'=>$filename],['id_book'=>$id]);
             return true;
         }else{
             return false;

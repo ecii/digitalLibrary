@@ -92,6 +92,6 @@ class Book extends \yii\db\ActiveRecord
        return Book::find()->count();
     }
 
-   
+
    
 }

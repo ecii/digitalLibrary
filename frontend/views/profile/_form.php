@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use kartik\form\ActiveForm;
 use kartik\builder\Form;
 use kartik\select2\Select2;
+use yii\widgets\Pjax;
 /** @var yii\web\View $this */
 /** @var common\models\Profile $model */
 /** @var yii\widgets\ActiveForm $form */
@@ -17,7 +18,18 @@ use kartik\select2\Select2;
 
     <!--<input type="text" name="name" maxlength="225">-->
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(
+        [
+            'options'=>[
+                'data-pjax'=>'true',
+                'id'=>'profile'
+            ]
+        ]
+    ); ?>
+
+<?php
+Pjax::begin(['id'=>'profile']); //membuat alarm untuk menolak file
+?>
     <?=
     Form::widget([
         'model' => $model,
@@ -57,7 +69,9 @@ use kartik\select2\Select2;
 ]);
     
     ?>
-
+<?php
+    Pjax::end();
+?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
