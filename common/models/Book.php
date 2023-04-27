@@ -37,7 +37,7 @@ class Book extends \yii\db\ActiveRecord
             [['title', 'author', 'publisher', 'year', 'description', 'created_at', 'created_by'], 'required'],
             [['year', 'created_at', 'created_by'], 'safe'],
             [['description'], 'string'],
-            [['title', 'author', 'publisher'], 'string', 'max' => 225],
+            [['title', 'author', 'publisher','book_status'], 'string', 'max' => 225],
         ];
     }
 
@@ -55,6 +55,7 @@ class Book extends \yii\db\ActiveRecord
             'description' => 'Description',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
+            'book_status' => 'Book Status',
         ];
     }
 
@@ -69,7 +70,7 @@ class Book extends \yii\db\ActiveRecord
     }
 
     public static function listBook(){
-        $data = Book::find()->all(); //select * from tabel Book 
+        $data = Book::find()->where(['book_status'=>'Ready'])->all(); //select * from tabel Book where book status ready
         //kalau ada :: berarti dy model (object)
         $array_book= ArrayHelper::map($data,'id_book','title'); // arry helper membuat arry dari objk
         return $array_book;

@@ -28,7 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'author',
             'publisher',
             'year',
-            'description:ntext'
+            'description:ntext',
+            'book_status'
         ];
 
        echo ExportMenu::widget([
@@ -56,12 +57,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            
 
             //'id_book',
+            [
+                'attribute' => 'foto',
+                'format' => 'html',
+                'label' => 'Image',
+                'value' => function ($data) {
+                           return Html::img('web/img\cover' . $data['foto'],
+                           ['width' => '80px',
+                            'height' => '80px']);
+                          },
+            ],
             'title',
             'author',
             'publisher',
             'year',
+            'book_status',
             //'description:ntext',
             //'created_at',
             //'created_by',

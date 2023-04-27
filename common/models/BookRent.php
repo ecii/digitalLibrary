@@ -10,10 +10,12 @@ use Yii;
  * @property int $id_book_rent
  * @property int $rent_record_id
  * @property int $book_id
+ * @property int $penalty_id
  * @property string $created_at
  * @property int $created_by
  *
  * @property Book $book
+ * @property Penalty $penalty
  * @property RentRecord $rentRecord
  */
 class BookRent extends \yii\db\ActiveRecord
@@ -32,11 +34,12 @@ class BookRent extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rent_record_id', 'book_id', 'created_at', 'created_by'], 'required'],
-            [['rent_record_id', 'book_id', 'created_by'], 'integer'],
+            [['rent_record_id', 'book_id', 'penalty_id', 'created_at', 'created_by'], 'required'],
+            [['rent_record_id', 'book_id', 'penalty_id', 'created_by'], 'integer'],
             [['created_at'], 'safe'],
             [['book_id'], 'exist', 'skipOnError' => true, 'targetClass' => Book::class, 'targetAttribute' => ['book_id' => 'id_book']],
             [['rent_record_id'], 'exist', 'skipOnError' => true, 'targetClass' => RentRecord::class, 'targetAttribute' => ['rent_record_id' => 'id_rent_record']],
+            [['penalty_id'], 'exist', 'skipOnError' => true, 'targetClass' => Penalty::class, 'targetAttribute' => ['penalty_id' => 'id_penalty']],
         ];
     }
 
@@ -49,6 +52,7 @@ class BookRent extends \yii\db\ActiveRecord
             'id_book_rent' => 'Id Book Rent',
             'rent_record_id' => 'Rent Record ID',
             'book_id' => 'Book ID',
+            'penalty_id' => 'Penalty ID',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
         ];
@@ -59,9 +63,19 @@ class BookRent extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getBook()//nama tabel yang berelasi
+    public function getBook()
     {
         return $this->hasOne(Book::class, ['id_book' => 'book_id']);
+    }
+
+    /**
+     * Gets query for [[Penalty]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPenalty()
+    {
+        return $this->hasOne(Penalty::class, ['id_penalty' => 'penalty_id']);
     }
 
     /**
@@ -73,5 +87,4 @@ class BookRent extends \yii\db\ActiveRecord
     {
         return $this->hasOne(RentRecord::class, ['id_rent_record' => 'rent_record_id']);
     }
-    
 }

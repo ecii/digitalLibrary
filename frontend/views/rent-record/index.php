@@ -44,11 +44,21 @@ $this->params['breadcrumbs'][] = $this->title;
             //'created_by',
             [
                 'class' => ActionColumn::className(),
-                'template'=>'{return}  {add-book}',
+                'template'=>'{return}  {add-book}  {payment}',
                 'visibleButtons'=>[ // menghilangkan button pada kondisi tertentu
                     'return' => function($model){
                         if($model->rent_status=='RENT'){
                             return TRUE;
+                        }
+                    },
+                    'payment'=>function($model){
+                        if($model->rent_status=='RETURN'){
+                            return TRUE;
+                        }
+                    },
+                    'add-book'=>function($model){
+                        if($model->rent_status=='RENT'){
+                            return true;
                         }
                     }
                 ],
@@ -61,7 +71,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'add-book'=> function($url,$model){
                         return Html::a('List Book',['/book-rent/index','rent_record_id'=>$model->id_rent_record],['class'=>'btn btn-outline-info']);
-                    }
+                    },
+                    'payment'=> function($url,$model){
+                        return Html::a('Payment',['/rent-record/payment','rent_record_id'=>$model->id_rent_record],['class'=>'btn btn-outline-danger']);
+                    },
                 ]                
             ],
         ],

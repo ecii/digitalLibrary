@@ -2,10 +2,15 @@
 
 namespace frontend\controllers;
 
+use common\models\BookRent;
 use common\models\Profile;
 use common\models\ProfileSearch;
 use common\models\RentRecord;
 use common\models\RentRecordSearch;
+use common\models\BookRentSearch;
+use common\models\Penalty;
+use DateTime;
+use PhpParser\Node\Expr\New_;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -54,6 +59,50 @@ class RentRecordController extends Controller
         $model->updateAll(['rent_status'=>'RETURN','return_at'=>date('Y-m-d')],['id_rent_record'=>$id_rent_record]);
         return $this->redirect(['index']);
         
+    }
+
+    public function actionPayment(){
+        //$id_rent_record=$_GET['rent_record_id'];
+
+        // $searchModel = new RentRecordSearch();
+        // $dataProvider = $searchModel->search($this->request->queryParams);
+        // $dataProvider->query->andFilterWhere(['rent_record_id'=>$id_rent_record]);
+        // $data = BookRent::findAll($id_rent_record);
+        // foreach($data as $array){
+        //     echo"
+        //     <table>
+        //     <tr>
+        //         <td>id rent book :".$array->id_book_rent."</td>
+        //     </tr>
+        //     </table>
+            
+        //     ";
+        // }
+
+        // $model = new BookRentSearch();
+        // $model->findModel($id_rent_record);
+        // echo $model->id_book_rent;
+        
+        $model = new BookRent();
+        return $this->render('../penalty/index-payment',['model'=>$model]);
+
+        // $id_rent_record=$_GET['rent_record_id'];
+        // $model=New BookRent();
+        // $data = $model->find()->where($id_rent_record)->all();
+        // foreach($data as $array){
+
+        //     echo $array->id_book_rent;
+        //     //$tglKembali=new DateTime($array['return_at']);
+
+        //     // $selisih=$tglKembali->diff($tglPinjam);
+
+        //     // $hari=$selisih->d;
+        //     // $lamaHari=$hari-7;
+        //     // $denda=$lamaHari*2000;
+
+        //     //return $denda;
+        // }
+
     }
     public function actionDataRent($id_profile)
     {

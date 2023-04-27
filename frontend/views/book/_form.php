@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use kartik\form\ActiveForm;
 use kartik\builder\Form;
+
+use function PHPSTORM_META\type;
+
 /** @var yii\web\View $this */
 /** @var common\models\Book $model */
 /** @var yii\widgets\ActiveForm $form */
@@ -27,6 +30,11 @@ use kartik\builder\Form;
                 ['options' => ['placeholder'=>'Publisher\'s Full Name']],
             'year' =>
                 ['options' => ['type'=>'number','min'=>'1900']],
+            'book_status'=>
+                [
+                    'type'=> Form::INPUT_RADIO_LIST,
+                    'items'=> ['Ready'=>'Ready','Lost'=>'Lost','Broken'=>'Broken']
+                ]
         ]
             
 ]);

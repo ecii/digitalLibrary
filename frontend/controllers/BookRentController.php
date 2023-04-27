@@ -56,6 +56,7 @@ class BookRentController extends Controller
         ]);
     }
 
+   
     /**
      * Displays a single BookRent model.
      * @param int $id_book_rent Id Book Rent

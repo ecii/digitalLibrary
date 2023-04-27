@@ -43,7 +43,8 @@ AppAsset::register($this);
             'url' => ['#'],
             'items' =>[
                 ['label'=> 'Job','url'=>['/job/index']],
-                ['label'=> 'Profile','url'=>['/profile/index']]
+                ['label'=> 'Profile','url'=>['/profile/index']],
+                ['label'=> 'Penalty','url'=>['/penalty/index']]
             ],
         ],
         [

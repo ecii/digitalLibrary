@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Book;
+use common\models\PenaltyPrice;
 use yii\helpers\Html;
 
 use kartik\form\ActiveForm;
@@ -27,6 +28,13 @@ use kartik\select2\Select2;
                 'options'=>[
                     'data' => Book::listBook() //buat function untuk menggenerate table
                     ]
+                ],
+                'penalty_id'=>[
+                    'type'=> Form::INPUT_WIDGET,
+                    'widgetClass'=> Select2::className(), 
+                    'options'=>[
+                        'data' => PenaltyPrice::listPenaltyPrice() //buat function untuk menggenerate table
+                        ]
                 ],
         ]
 ]);?>
